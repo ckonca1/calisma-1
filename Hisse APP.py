@@ -3,9 +3,6 @@ from datetime import datetime
 import yfinance as yf
 import matplotlib.pyplot as plt
 import pandas as pd
-import matplotlib.dates as mdates
-import numpy as np
-
 
 
 
@@ -51,29 +48,3 @@ selected_df_quarterly = pd.DataFrame(selected_data_quarterly)
 st.header("Çeyreklik Finansal Veriler")
 st.dataframe(selected_df_quarterly)
 
-
-
-
-# Close ve Volume grafiği
-fig, ax1 = plt.subplots(figsize=(12,6))
-
-color = 'tab:red'
-ax1.set_xlabel('Kapanış Fiyatı')
-ax1.set_ylabel('Fiyat', color=color)
-ax1.plot(df['Close'], color=color)
-ax1.tick_params(axis='y', labelcolor=color)
-
-ax2 = ax1.twinx()  # İkinci y ekseni oluştur
-
-color = 'tab:blue'
-ax2.set_ylabel('Hacim', color=color)
-ax2.bar(df.index.to_numpy(), df['Volume'], color=color, alpha=0.3)
-ax2.tick_params(axis='y', labelcolor=color)
-
-# Format x-axis ticks with dates
-ax2.set_xticks(df.index.to_numpy()[::5])  # Adjust interval as needed
-ax2.set_xticklabels(pd.to_datetime(df.index[::5]).strftime('%Y-%m-%d'))
-ax2.set_xlabel('Tarih')
-
-fig.tight_layout()  # Grafiği düzenle
-st.pyplot(fig)  # Grafiği Streamlit'te göster
